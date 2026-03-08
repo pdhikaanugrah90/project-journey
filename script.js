@@ -10,6 +10,7 @@ const modalInner = document.querySelector('.modal-content');
 
 const painWords = ["Invisible", "why?", "it hurts", "Empty", "Forgotten", "Garbage", "Low-Latency"];
 let isModalOpen = false;
+let isFinished = false;
 
 // 1. SETUP
 if (history.scrollRestoration) history.scrollRestoration = 'manual';
@@ -54,6 +55,8 @@ function runTerminal() {
 
 // 2. LOGIC SCROLL (THE FULL JOURNEY)
 window.addEventListener('scroll', () => {
+    if (isFinished) return;
+
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPoint = window.scrollY / scrollHeight;
 
@@ -77,7 +80,7 @@ window.addEventListener('scroll', () => {
         if (navigator.vibrate) navigator.vibrate(20);
     } else if (scrollPoint < 0.75) {
         handleOverthinking();
-        updateContent("Rewriting every thought... Overthinking", subText.innerText, "#222", "#888");
+        updateContent("Rewriting every thought... 'Overthinking'", subText.innerText, "#222", "#888");
     } else if (scrollPoint < 0.9) {
         body.style.backgroundColor = "#1a0000"; 
         mainText.classList.add('glitch-priority');
@@ -93,7 +96,11 @@ window.addEventListener('scroll', () => {
         if (Math.random() > 0.7) createFloatingWord();
         if (navigator.vibrate) navigator.vibrate([80, 40, 80]); 
     } else {
-        if (!isModalOpen) showFinalError();
+        if (!isModalOpen) {
+            isFinished = true; 
+            body.style.overflow = "hidden";
+            showFinalError();
+        }
     }
 });
 
