@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Support System</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,8 +10,8 @@
     <div id="overlay">
         <div class="intro-content">
             <span class="heart-icon">❤️</span>
-            <h1>Click to start the journey</h1>
-            <p>(please turn on your audio)</p>
+            <h1 style="font-size: 1.5rem;">Click anywhere to start the journey</h1>
+            <p style="color: #ff4d4d; font-size: 0.9rem;">(please turn on your audio)</p>
         </div>
     </div>
 
@@ -32,8 +32,8 @@
 
     <div id="reboot-modal" class="hidden">
         <div class="modal-content">
-            <h3 style="color: red;">CRITICAL ERROR</h3>
-            <p>Persistent memory leak detected in module 'Feelings'.<br>Action Required: Reboot system and clear temporary data?</p>
+            <h3 style="color: #ff0000; margin-bottom: 15px;">CRITICAL ERROR</h3>
+            <p>Persistent memory leak detected in module 'Feelings'.<br><br>Action Required: Reboot system and clear temporary data?</p>
             <div class="btn-group">
                 <button id="btn-yes">YES</button>
                 <button id="btn-no">NO</button>
