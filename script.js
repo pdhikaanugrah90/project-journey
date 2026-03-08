@@ -79,17 +79,23 @@ window.addEventListener('scroll', () => {
     if (scrollPct > 45) {
         mainText.classList.add('glitch-active');
         subText.classList.add('glitch-active');
-
-        if (navigator.vibrate && Math.random() > 0.85) {
-            navigator.vibrate(40);
-        }
-
-        if (Math.random() > 0.75) createFloatingWord();
-        scrambleText(mainText, current.main);
+        scrambleText(mainText, current.main); 
     } else {
         mainText.classList.remove('glitch-active');
         subText.classList.remove('glitch-active');
         mainText.innerText = current.main;
+    }
+
+    // --- BAGIAN 2: FLOATING WORDS & VIBRATE (Hanya di 75 ke atas) ---
+    if (scrollPct > 75) { 
+        // Getaran HP
+        if (navigator.vibrate && Math.random() > 0.8) {
+            navigator.vibrate(50);
+        }
+        // Munculin kata-kata melayang
+        if (Math.random() > 0.75) {
+            createFloatingWord();
+        }
     }
     subText.innerText = current.sub;
 
@@ -106,28 +112,33 @@ function createFloatingWord() {
     const originalText = painWords[Math.floor(Math.random() * painWords.length)];
     word.innerText = originalText;
 
+    //logic for chaos
+    word.style.left = Math.random() * 90 + "vw";
+    word.style.top = Math.random() * 85 + "vh";
+    const randomSize = Math.random() * (1.8 - 0.8) + 0.8;
+    word.style.fontSize = randomSize + "rem";
+
     //mini glitch for floating text
     const glitchInt = setInterval(() => {
-        if (Math.random() > 0.9) {
+        if (Math.random() > 0.25) {
             const old = word.innerText;
             word.innerText = "█#$@";
             setTimeout(() => word.innerText = originalText, 60);
         }
     }, 200);
 
-    word.style.left = Math.random() * 80 + "vw";
-    word.style.top = "80vh";
+
     document.getElementById('floating-container').appendChild(word);
 
     setTimeout(() => {
         clearInterval(glitchInt);
         word.remove();
-    }, 2800);
+    }, 3500);
 }
 
 function scrambleText(element, text) {
     const chars = "X█Y01#$";
-    element.innerText = text.split('').map(c => Math.random() > 0.25 ? chars[Math.floor(Math.random()*chars.length)] : c).join('');
+    element.innerText = text.split('').map(c => Math.random() > 0.75 ? chars[Math.floor(Math.random()*chars.length)] : c).join('');
 }
 
 // button logic
@@ -140,15 +151,33 @@ document.getElementById('btn-no').addEventListener('click', () => {
 
 document.getElementById('btn-yes').addEventListener('click', () => {
     if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+
+    rebootModal.style.background = "black"; 
+    
     rebootModal.innerHTML = `
-        <div style="color: #fff; text-align: left; font-size: 1rem; line-height: 1.6;">
-            <p>> System recovered.</p>
-            <p>> User 'She' moved to Archive.</p>
-            <p>> Focusing on local core...</p>
-            <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;">Everything will be okay ❤️</p>
+        <div class="modal-content" style="border: 1px solid #0f0; text-align: left; padding: 25px;">
+            <div style="color: #0f0; font-family: 'Courier New', monospace; line-height: 1.8;">
+                <p>> [SYSTEM RECOVERED]</p>
+                <p>> User 'She' moved to Archive.</p>
+                <p>> Connection: Private & Secured.</p>
+                <p style="margin-top: 30px; font-size: 0.85rem; color: #fff; opacity: 0.8;">
+                    Everything is under control now ❤️
+                </p>
+            </div>
         </div>
     `;
-    document.body.style.backgroundColor = "white";
+
+    document.body.style.backgroundColor = "black";
+    
+    finalHeart.innerText = "❤️"; 
     finalHeart.classList.remove('hidden');
-    setTimeout(() => { window.location.reload(); }, 6000);
+
+    setTimeout(() => { finalHeart.style.opacity = "0.3"; }, 100);
+    
+
+    contentBox.classList.add('hidden');
+    document.getElementById('floating-container').innerHTML = '';
+
+
+    setTimeout(() => { window.location.reload(); }, 7000);
 });
