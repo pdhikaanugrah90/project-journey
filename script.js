@@ -54,7 +54,7 @@ const phases = [
     { limit: 98, main: "I AM THE GARBAGE COLLECTOR FOR YOUR LONELY HOURS.", sub: "SYSTEM OVERLOAD: SELF-RESPECT LOADING...", color: "#000", text: "#0f0", sig: "CRITICAL" }
 ];
 
-const painWords = ["why?", "it hurts", "invisible", "lied", "standard reply", "time out"];
+const painWords = ["why?", "it hurts", "invisible", "lied", "blame me", "time out"];
 
 window.addEventListener('scroll', () => {
     const scrollPct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
