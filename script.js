@@ -64,7 +64,7 @@ window.addEventListener('scroll', () => {
     mainText.style.color = current.text;
     subText.style.color = current.text;
     document.getElementById('signal-strength').innerText = current.sig;
-    document.getElementById('checklist').innerText = scrollPct > 75 ? "✗" : "✓";
+    document.getElementById('checklist').innerText = scrollPct > 45 ? "✗" : "✓";
     
     //Audio Logic
     if (scrollPct > 35) {
@@ -76,7 +76,7 @@ window.addEventListener('scroll', () => {
     }
 
     // Critical Phases (vibration & Floating pain)
-    if (scrollPct > 75) {
+    if (scrollPct > 45) {
         mainText.classList.add('glitch-active');
         subText.classList.add('glitch-active');
 
@@ -84,14 +84,14 @@ window.addEventListener('scroll', () => {
             navigator.vibrate(40);
         }
 
-        if (Math.random() > 0.88) createFloatingWord();
+        if (Math.random() > 0.75) createFloatingWord();
         scrambleText(mainText, current.main);
     } else {
         mainText.classList.remove('glitch-active');
         subText.classList.remove('glitch-active');
         mainText.innerText = current.main;
     }
-    subText.innerText = current.main;
+    subText.innerText = current.sub;
 
     // Trigger modal
     if (scrollPct > 99.5) {

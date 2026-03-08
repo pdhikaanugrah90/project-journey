@@ -41,6 +41,7 @@ body {
     z-index: 999;
     font-size: 0.85rem;
     text-align: left;
+    transition: opacity 0.8s ease;
 }
 
 .hidden {
@@ -100,9 +101,9 @@ body {
     font-weight: bold;
     pointer-events: none;
     z-index: 50;
-    animation: floatUp 2.8s linear forwards, glitchFlicker 0.2 infinite;
+    animation: floatUp 2.8s linear forwards, glitchFlicker 0.2s infinite;
     font-size: 1.3rem;
-    text-shadow: 1px 1px #00ffff, -1px -1px -1px #ff00ff; 
+    text-shadow: 1px 1px #00ffff, -1px -1px #ff00ff; 
 }
 
 @keyframes floatUp {
@@ -172,6 +173,7 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 18rem;
-    opacity: 0.05;
-    z-index: -1; color: red;
+    opacity: 0.3;
+    z-index: -1; 
+    color: red;
 }
