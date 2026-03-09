@@ -17,7 +17,13 @@ if (history.scrollRestoration) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
 document.getElementById('overlay').addEventListener('click', () => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
+    
+    if (navigator.vibrate) {
+        navigator.vibrate(50);
+        console.log("Haptic Engine: Authorized");
+    }
+    
     document.getElementById('overlay').classList.add('hidden');
     document.getElementById('terminal-screen').classList.remove('hidden');
     runTerminal();
@@ -26,6 +32,8 @@ document.getElementById('overlay').addEventListener('click', () => {
 function runTerminal() {
     const lines = [
         "> Initializing heartbeat protocol...",
+        "> Checking hardware compatibility...",
+        navigator.vibrate ? "> Haptic Engine: READY" : "> Haptic Engine: NOT_SUPPORTED",
         "> Loading emotional_database.db...",
         "> Searching for user 'She'...",
         "> ........................",
@@ -60,6 +68,11 @@ window.addEventListener('scroll', () => {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPoint = window.scrollY / scrollHeight;
 
+    if (scrollPoint < 0.25) {
+        audio.playbackRate = 1.0;
+        audio.volume = 1.0;
+    }
+
     mainText.classList.remove('text-slicing', 'glitch-priority', 'garbage-shake');
     mainText.style.color = "";
 
@@ -68,10 +81,16 @@ window.addEventListener('scroll', () => {
     } else if (scrollPoint < 0.25) {
         updateContent("We were building something beautiful...", "Weren't we?", "#ffe0e9", "#c08090");
     } else if (scrollPoint < 0.35) {
+        audio.playbackRate = 0.9;
+        audio.volume = 0.95
         updateContent("The logic was clear...", "But the data doesn't match.", "#e0d5d8", "#888");
     } else if (scrollPoint < 0.45) {
+        audio.playbackRate = 0.8;
+        audio.volume = 0.9;
         updateContent("Trying to find 'us' in a database...", "that already deleted me.", "#999", "#eee");
     } else if (scrollPoint < 0.6) {
+        audio.playbackRate = 0.75;
+        audio.volume = 0.7;
         mainText.classList.add('text-slicing'); 
         const target = "Invisible even when I'm right here.";
         mainText.setAttribute('data-text', target);
@@ -79,15 +98,21 @@ window.addEventListener('scroll', () => {
         updateContent(mainText.innerText, "Just a shadow in your crowd.", "#444", "#ccc");
         if (navigator.vibrate) navigator.vibrate(20);
     } else if (scrollPoint < 0.75) {
+        audio.playbackRate = 0.65;
+        audio.volume = 0.8
         handleOverthinking();
         updateContent("Rewriting every thought... 'Overthinking'", subText.innerText, "#222", "#888");
     } else if (scrollPoint < 0.9) {
+        audio.playbackRate = 0.6;
+        audio.volume = 1.0;
         body.style.backgroundColor = "#1a0000"; 
         mainText.classList.add('glitch-priority');
         scrambleText(mainText, "Am I a priority or just a 'low-latency' option?");
         updateContent(mainText.innerText, "Checking heart's availability...", "#1a0000", "white");
         if (navigator.vibrate) navigator.vibrate(50);
     } else if (scrollPoint < 0.99) {
+        audio.playbackRate = 0.35;
+        audio.volume = 1.2;
         body.style.backgroundColor = "black";
         mainText.style.color = "#0f0";
         mainText.classList.add('garbage-shake');
@@ -170,6 +195,10 @@ function sendToTelegram(name, msg) {
 
 function applyHealedState() {
     isModalOpen = false;
+
+    audio.playbackRate = 1.0;
+    audio.volume = 1.0;
+
     rebootModal.classList.add('hidden');
     body.classList.add('healed');
     mainText.classList.remove('garbage-shake', 'text-slicing');
